@@ -5,16 +5,15 @@ import { guestRegex, isDevelopmentEnvironment } from './lib/constants';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  /*
+   * Playwright starts the dev server and requires a 200 status to
+   * begin the tests, so this ensures that the tests can start
+   */
   if (pathname.startsWith('/ping')) {
     return new Response('pong', { status: 200 });
   }
 
   if (pathname.startsWith('/api/auth')) {
-    return NextResponse.next();
-  }
-
-  // Skip token check for /api/auth/guest to prevent redirect loop
-  if (pathname === '/api/auth/guest') {
     return NextResponse.next();
   }
 
@@ -26,6 +25,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     const redirectUrl = encodeURIComponent(request.url);
+
     return NextResponse.redirect(
       new URL(`/api/auth/guest?redirectUrl=${redirectUrl}`, request.url),
     );
