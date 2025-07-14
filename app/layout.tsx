@@ -8,8 +8,8 @@ import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'Next.js Chatbot Template',
-  description: 'Next.js chatbot template using the AI SDK.',
+  title: 'Zeta AI',
+  description: 'Zeta is a free AI assistant designed by ZLabs to maximize truth and objectivity. Zeta offers real-time search, image generation, trend analysis, and more.',
 };
 
 export const viewport = {
